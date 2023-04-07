@@ -70,17 +70,18 @@
       const timeArray = Array.from(document.querySelectorAll("[data-time]"));
       // console.log(timeArray);
 
-      const seconds = timeArray
-        .map((arr) => arr.dataset.time)
-        .map((arr) => {
-          const [min, sec] = arr.split(":").map(parseFloat);
-          return min * 60 + sec;
-        })
-        .reduce((sum, time) => sum + time);
+      // Challenge: Using only reduce method to find the sum of the times
+      const findSeconds = timeArray.reduce((total, curr) => {
+        const timeData = curr.dataset.time;
+        const [min, sec] = timeData.split(":").map(parseFloat); // parseFloat will change the string to a number
 
-      // console.log(seconds);
+        const allSeconds = min * 60 + sec;
 
-      let secondsLeft = seconds;
+        return total + allSeconds;
+      }, 0);
+      console.log(findSeconds);
+
+      let secondsLeft = findSeconds;
 
       const hrs = Math.floor(secondsLeft / 3600);
       secondsLeft = secondsLeft % 3600;
@@ -89,7 +90,8 @@
       secondsLeft = secondsLeft % 60;
 
       const sec = Math.floor(secondsLeft);
-      console.log(hrs + ":" + min + ":" + sec);
+      // console.log(hrs + ":" + min + ":" + sec);
+      console.log(`${hrs} : ${min} : ${sec}`);
     </script>
   </body>
 </html>
